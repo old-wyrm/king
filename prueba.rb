@@ -1,6 +1,7 @@
-require "/Users/atta/Documents/RUBY/V0/baraja.rb"
-require "/Users/atta/Documents/RUBY/V0/jugador.rb"
-require "/Users/atta/Documents/RUBY/V0/mesa.rb"
+require "/Users/atta/Documents/RUBY/V1/baraja.rb"
+require "/Users/atta/Documents/RUBY/V1/jugador.rb"
+require "/Users/atta/Documents/RUBY/V1/mesa.rb"
+require "/Users/atta/Documents/RUBY/V1/carta.rb"
 j1 = Jugador.new ("AG")
 j2 = Jugador.new ("Aq")
 j3 = Jugador.new ("MJ")
@@ -15,8 +16,24 @@ m = Mesa.new j1, j2, j3, j4
 # la carta es una string que codifica la carta segun aparece en baraja
 b = Baraja.new
 b.repartir(m)
-print m.mesa[Mesa::J1].nombre,"=>",m.mesa[Mesa::J1].mano,"\n"
-print m.mesa[Mesa::J2].nombre,"=>",m.mesa[Mesa::J2].mano,"\n"
-print m.mesa[Mesa::J3].nombre,"=>",m.mesa[Mesa::J3].mano,"\n"
-print m.mesa[Mesa::J4].nombre,"=>",m.mesa[Mesa::J4].mano,"\n"
+print m.mesa[Mesa::J1].nombre,"=>"
+m.mesa[Mesa::J1].mano.each do |c|
+	print c.carta," "
+end
+print "\n"
+print m.mesa[Mesa::J2].nombre,"=>"
+m.mesa[Mesa::J2].mano.each do |c|
+	print c.carta," "
+end
+print "\n"
+print m.mesa[Mesa::J3].nombre,"=>"
+m.mesa[Mesa::J3].mano.each do |c|
+	print c.carta," "
+end
+print "\n"
+print m.mesa[Mesa::J4].nombre,"=>"
+m.mesa[Mesa::J4].mano.each do |c|
+	print c.carta," "
+end
+print "\n"
 
