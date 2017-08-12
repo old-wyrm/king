@@ -5,6 +5,19 @@ class Jugador
 	def initialize (nombre)
 		@nombre = nombre
 		@mano = []
+		@puntos = 0
+	end
+
+	def muestra_mano 
+		print @nombre,"=>"
+		mano.each do |c|
+			print c.carta," "
+		end
+		print "\n"
+	end
+
+	def muestra_puntuacion
+		print @nombre, "=>",@puntos, " ptos\n"
 	end
 
 	#accesores
