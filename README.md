@@ -10,7 +10,7 @@ Este es el primer proyecto en RUBY del autor por lo que se ruega comprension.
 
 ## Requisitos
 
-Este codigo ha sido desarrollado y testeado con Ruby v X.X.X
+Este codigo ha sido desarrollado y testeado con Ruby 2.0.0p648
 
 ## Cómo usarlo?
 
@@ -18,6 +18,14 @@ Fácil: `ruby juego.rb`
 
 ## Documentacion
 
+El proyecto está documentado con YARD. La documentación puede construirse con ejecutando `yard doc *rb` en el directorio raíz.
+
+Para instalar YARD: `gem install yard`
+
 ## Licencia
 
+<Pendiente de decidir>
+
 ## Sobre el autor
+
+Apasionado de la programación. Hace tiempo que me dedico a la gestión de equipos de desarrollo. Este es mi proyecto anual. ¡Dadme ánimos¡
