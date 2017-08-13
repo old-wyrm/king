@@ -1,5 +1,7 @@
 # KING CARD GAME IA
 
+[![Licencia](http://img.shields.io/badge/license-MIT-yellowgreen.svg)](http://img.shields.io/badge/license-MIT-yellowgreen.svg)
+
 ## Introduccion
 
 KCG (King Card Game) es un proyecto de desarrollo en RUBY de una IA para jugar a King.
@@ -23,10 +25,6 @@ El proyecto está documentado con YARD. La documentación puede construirse con 
 Para instalar YARD: `gem install yard`
 
 En cualquier caso consulta la [wiki del proyecto](https://github.com/old-wyrm/king/wiki) para saber más sobre este juego y esta tentativa de IA.
-
-## Licencia
-
-Pendiente de decidir.
 
 ## Sobre el autor
 
