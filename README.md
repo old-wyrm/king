@@ -1,4 +1,6 @@
-= Introduccion =
+# KING CARD GAME IA
+
+## Introduccion
 
 KCG (King Card Game) es un proyecto de desarrollo en RUBY de una IA para jugar a King.
 
@@ -6,6 +8,16 @@ King es un juego de cartas francesas en el que cuatro y solo cuatro jugadores tr
 
 Este es el primer proyecto en RUBY del autor por lo que se ruega comprension.
 
-(= Requisitos =
+## Requisitos
 
-Este codigo ha sido desarrollado y testeado con ruby v X.X.X
+Este codigo ha sido desarrollado y testeado con Ruby v X.X.X
+
+## Cómo usarlo?
+
+Fácil: `ruby juego.rb`
+
+## Documentacion
+
+## Licencia
+
+## Sobre el autor
