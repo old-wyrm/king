@@ -3,10 +3,34 @@ require "/Users/atta/Documents/RUBY/V1/jugador.rb"
 require "/Users/atta/Documents/RUBY/V1/mesa.rb"
 require "/Users/atta/Documents/RUBY/V1/carta.rb"
 
+# Clase principal que ejecuta una partida llamando secuencialmente a cada una de las rondas.
+#
+# @author old-wyrm
+#
+# @example
+#  j = Juego.new
+#  j.crea_mesa "AGU","MJ","AQUI","JP"
+#  j.inicia_juego
+#
+# @!attribute [r] mesa_de_juego 
+#   @return [Mesa]
+#   Mesa de juego de la partida
+#
+# @note Clase principal de la IA
 class Juego
+
+ # Constructor vacío
  def initialize 
  end
 
+ # Crea una mesa de juego. Usando la clase Mesa y a partir de cuatro nombres de jugadores inicializando las variables internas @mesa_de_juego y @baraja_de_juego
+ #
+ # @see Mesa
+ #
+ # @param j1 [String] Nombre del jugador 1
+ # @param j2 [String] Nombre del jugador 2
+ # @param j3 [String] Nombre del jugador 3
+ # @param j4 [String] Nombre del jugador 4
  def crea_mesa (j1,j2,j3,j4)
 	 @jugador1 = Jugador.new (j1)
 	 @jugador2 = Jugador.new (j2)
@@ -17,6 +41,7 @@ class Juego
 	 @baraja_de_juego = Baraja.new
  end
 
+ # Inicia la partida. Lleva a cabo la partida mediante llamadas internas a las diferentes rondas
  def inicia_juego
 	 @baraja_de_juego.repartir @mesa_de_juego
 	 muestra_manos_jugadores
@@ -55,6 +80,8 @@ class Juego
 	 @jugador3.muestra_puntuacion
 	 @jugador4.muestra_puntuacion
  end
+ 
+ attr_reader :mesa_de_juego
 end
 
 j = Juego.new
