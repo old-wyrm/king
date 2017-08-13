@@ -22,9 +22,11 @@ El proyecto está documentado con YARD. La documentación puede construirse con 
 
 Para instalar YARD: `gem install yard`
 
+En cualquier caso consulta la [wiki del proyecto](https://github.com/old-wyrm/king/wiki) para saber más sobre este juego y esta tentativa de IA.
+
 ## Licencia
 
-<Pendiente de decidir>
+Pendiente de decidir.
 
 ## Sobre el autor
 
