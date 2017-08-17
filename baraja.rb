@@ -1,43 +1,72 @@
+# $LOAD_PATH << "."
+# require 
+
+# Clase Baraja. Esta clase se usa a la hora de crear una baraja estandar francesa y a la hora de repartir las cartas entre los jugadores.
+#
+# @!attribute [r] baraja
+# 	Almacena la baraja como un array de objetos Carta.
+# 	@return [Array] Array de objetos Carta.
+# 	@see Carta
+#
+# @author old-wyrm
+#
 class Baraja
-	#Tamaño maximo de la baraja
-	TAMANO_MAX_BARAJA = 52
+	attr_reader :baraja
+
+	# Crea el objeto baraja. La baraja es una baraja francesa tipica, sin comodines. Para crearla, Recorre los palos y valores creando un objeto Carta para cada posible par palo/valor.
+	#
+	# @see Constantes::PALOS
+	# @see Constantes::VALORES
+	#
 	def initialize ()
-		# Crea la baraja estandar francesa
-		# En esta version de es un array de objetos de la clase Carta
+		# inicializa la variable baraja como un array vacio
 		@baraja = []
-		Carta::PALOS.each do |p|
-			Carta::VALORES.each do |v|
-			c = Carta.new p,v
-			@baraja = @baraja + [c]
+		# recorre el array con todos los palos
+		Constantes::PALOS.each do |p|
+			# Recorre el array con todos los valores
+			Constantes::VALORES.each do |v|
+				# Para cada combinacion de palo/valor crea un objeto Carta y lo guarda en la baraja
+				c = Carta.new v,p
+				@baraja << (Carta.new v,p)
+
 			end
 		end
 	end
 	
-	# barajar es la funcion para repartir cartas al azar entre ellos
-	# recibe una instancia de la clase Mesa
+	# Repartir es la funcion para repartir cartas entre los jugadores. Reparte todas las cartas almacenadas en la baraja, al azar, entre todos los jugadores de la mesa pasada como parametro.
+	#
+	# @param m [Mesa] Mesa de juego.
+	#
+	# @note Este metodo modifica el objeto Mesa pasado como parametro, concretamente las manos de los jugadores que componen la mesa.
+	#
 	def repartir (m)
-		# toca es la variable que controla el reparto circular
-		for i in (0.. TAMANO_MAX_BARAJA - 2)
+		# Repite esta secuencia el tamaño maximo de la baraja menos 2. Una vez menos por el indice del array que es empieza a cero. Otra vez menos por la salida controlada.
+		for i in (0.. Constantes::TAMANO_MAX_BARAJA - 2)
 			# rand (x) produce un numero entero entre 0 y x-1
-			indice = rand (TAMANO_MAX_BARAJA - i)
+			indice = rand (Constantes::TAMANO_MAX_BARAJA - i)
 			# la carta elegida al azar es @baraja[indice]
 			# asigna la carta al jugador que le toca en el reparto (circular)
-			j = m.mesa[m.quien_va]
-			j.mano << @baraja[indice]
-			m.jugador_siguiente
+			j = m.jugadores[m.jugador_en_activo]
+			# Si la mano de un jugador (array de cartas) no esta creado
+			if j.mano_jugador == nil
+				then
+				# lo crea con la carta seleccionada como unico elemento
+				j.mano_jugador = [@baraja [indice]]
+			else
+				# si ya esta creado (array vacio o con elementos) inserta al final del array la carta seleccionada
+				j.mano_jugador << @baraja[indice]
+			end 
+			# pasa al siguiente jugador
+			m.siguiente_jugador_en_activo
 			#saca la carta de la baraja
 			@baraja = @baraja - [@baraja[indice]]
 
 		end
 		# queda un elemento en el array de baraja
 		# sera para el ultimo jugador y estara en @baraja[0]
-		j = m.mesa[m.quien_va]
-		j.mano = j.mano + [@baraja[0]]
-		m.jugador_siguiente
-		# la baraja se re-inicializa a vacia
-		@baraja = []
+		j = m.jugadores[m.jugador_en_activo]
+		j.mano_jugador << @baraja[0]
+		# pasa al siguiente jugador para que es al que le tocara jugar
+		m.siguiente_jugador_en_activo
 	end
-
-	#accesores
-	attr_reader :baraja
 end
