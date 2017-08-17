@@ -28,6 +28,7 @@ class Baraja
 				# Para cada combinacion de palo/valor crea un objeto Carta y lo guarda en la baraja
 				c = Carta.new v,p
 				@baraja << (Carta.new v,p)
+
 			end
 		end
 	end
