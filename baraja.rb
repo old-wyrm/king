@@ -35,38 +35,38 @@ class Baraja
 	
 	# Repartir es la funcion para repartir cartas entre los jugadores. Reparte todas las cartas almacenadas en la baraja, al azar, entre todos los jugadores de la mesa pasada como parametro.
 	#
-	# @param m [Mesa] Mesa de juego.
+	# @param jugadores [Hash] Jugadores de la mesa de juego.
+	# @param jugador_inicial [String] Jugador inicial de la ronda.
 	#
-	# @note Este metodo modifica el objeto Mesa pasado como parametro, concretamente las manos de los jugadores que componen la mesa.
-	#
-	def repartir (m)
+	def repartir jugadores, jugador_inicial
 		# Repite esta secuencia el tamaño maximo de la baraja menos 2. Una vez menos por el indice del array que es empieza a cero. Otra vez menos por la salida controlada.
+		jugador_que_toca = jugador_inicial
 		for i in (0.. Constantes::TAMANO_MAX_BARAJA - 2)
 			# rand (x) produce un numero entero entre 0 y x-1
 			indice = rand (Constantes::TAMANO_MAX_BARAJA - i)
 			# la carta elegida al azar es @baraja[indice]
 			# asigna la carta al jugador que le toca en el reparto (circular)
-			j = m.jugadores[m.jugador_en_activo]
+			j1 = jugadores[jugador_que_toca]
 			# Si la mano de un jugador (array de cartas) no esta creado
-			if j.mano_jugador == nil
+			if j1.mano_jugador == nil
 				then
 				# lo crea con la carta seleccionada como unico elemento
-				j.mano_jugador = [@baraja [indice]]
+				j1.mano_jugador = [@baraja [indice]]
 			else
 				# si ya esta creado (array vacio o con elementos) inserta al final del array la carta seleccionada
-				j.mano_jugador << @baraja[indice]
+				j1.mano_jugador << @baraja[indice]
 			end 
 			# pasa al siguiente jugador
-			m.siguiente_jugador_en_activo
+			jugador_que_toca = Constantes.siguiente_jugador jugador_que_toca
 			#saca la carta de la baraja
 			@baraja = @baraja - [@baraja[indice]]
 
 		end
 		# queda un elemento en el array de baraja
 		# sera para el ultimo jugador y estara en @baraja[0]
-		j = m.jugadores[m.jugador_en_activo]
-		j.mano_jugador << @baraja[0]
+		j1 = jugadores[jugador_que_toca]
+		j1.mano_jugador << @baraja[0]
 		# pasa al siguiente jugador para que es al que le tocara jugar
-		m.siguiente_jugador_en_activo
+		jugador_que_toca = Constantes.siguiente_jugador jugador_que_toca
 	end
 end
