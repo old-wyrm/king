@@ -16,7 +16,7 @@ Este codigo ha sido desarrollado y testeado con Ruby 2.0.0p648
 
 ## Cómo usarlo?
 
-Fácil: `ruby juego.rb`
+Fácil: `ruby test.rb <num_partidas>`
 
 ## Documentacion
 
