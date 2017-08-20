@@ -23,8 +23,7 @@ class Baza
 	# Muestra en pantalla la baza.
 	#
 	def muestra_en_pantalla
-		print "Baza:"
-		print Constantes::J1,"=>"
+		print "(",Constantes::J1,"=>"
 		@baza [Constantes::J1].muestra_en_pantalla if @baza[Constantes::J1] != nil
 		print " ",Constantes::J2,"=>"
 		@baza [Constantes::J2].muestra_en_pantalla if @baza[Constantes::J2] != nil
@@ -32,7 +31,7 @@ class Baza
 		@baza [Constantes::J3].muestra_en_pantalla if @baza[Constantes::J3] != nil
 		print " ",Constantes::J4,"=>"
 		@baza [Constantes::J4].muestra_en_pantalla if @baza[Constantes::J4] != nil
-		print "\n"
+		print ")"
 	end
 
 	# Devuelve la menor carta de una baza. Recorre todas las cartas de una baza y devuelve la menor.
@@ -66,24 +65,37 @@ class Baza
 
 	# Devuelve que jugador gana una baza. El ganador siempre es aquel que ha jugado la mayor carta del palo de inicio.
 	#
-	# @param c [Carta] Carta de la que se extrae el palo de inicio.
-	# @return [String] Devuelve una de las constantes definidas para identificar a los jugadores.
+	# @param c [Carta] Carta inicial de la baza.
+	# @return [String] Devuelve la constante del jugador que ha ganado.
 	# @see Constantes::J1
 	# @note no tendriamos que controlar que la carta inicial este en la baza o no este a nil?
 	#
 	def quien_gana c
 		# Valor inicial: El jugador que ha jugado la carta de inicio
-		ganador = @baza.key c
+		carta_ganadora = c
 		# Recorre toda la baza
 		@baza.each do |clave,valor|
 			# Si la carta de la iteracion es mayor que la carta inicial
-			if valor.es_mayor c
+			if valor.es_mismo_palo carta_ganadora and valor.es_mayor carta_ganadora
 				then
 				# Guardamos al nuevo ganador
-				ganador = clave
+				carta_ganadora = valor
 			end
 		end
 		# Siempre devolvera un valor a menos que la carta inicial este a nil o no se encuentre en la baza
-		return ganador
+		return @baza.key carta_ganadora
+	end
+
+	# Devuelve las cartas que se han jugado en una baza, sin importar quien.
+	#
+	# @return [Array] Array de objetos Carta que se han jugado.
+	#
+	def obtiene_cartas_jugadas
+		cartas_jugadas = []
+		jugadas = @baza.to_a
+		jugadas.each do |jugada|
+			cartas_jugadas << jugada[1]
+		end
+		return cartas_jugadas
 	end
 end

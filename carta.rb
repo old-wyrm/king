@@ -115,7 +115,7 @@ class Carta
 	# Muestra una carta por pantalla
 	#
 	def muestra_en_pantalla
-		print @carta," "
+		print @carta
 	end
 
 	# Devuelve la carta mas baja de un array de cartas, sean o no del mismo palo. Es un metodo de clase.
