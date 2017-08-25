@@ -38,25 +38,34 @@ class Jugador
 	# Crea un objeto Jugador.
 	#
 	# @param nombre [String] Nombre del jugador a crear. Este nombre es inmutable.
+	# @param v [Boolean] Indica el modo de salida en pantalla. Si true muestra etapas intermedias de la partida.
 	#
-	def initialize nombre, nivel
+	def initialize nombre, nivel, v
+
+		# Establece nivel de salida por pantalla
+		@verbose = v
+
 		@nombre_jugador = nombre
 		@puntuacion_jugador = 0
 		@mano_jugador = nil
 		@ia_jugador = nil
 		@nivel_inteligencia_jugador = nivel
 
+		Util.muestra_msg "Jugador creado.. =>"+nombre+" IA"+nivel.to_s+"\n",v
 	end
 
-	# Muestra un jugador por pantalla.
+	# Convierte y formatea un jugador en una cadena de caracteres.
 	#
-	def muestra_en_pantalla
-		print @nombre_jugador," ",@puntuacion_jugador
-		@mano_jugador.each do |c|
-			print " "
-			c.muestra_en_pantalla
+	# @return [String] Cadena formateada.
+	#
+	def to_s
+		salida = @nombre_jugador+" "+@puntuacion_jugador.to_s+" ptos "
+		m = @mano_jugador.sort!{|a,b| (Carta.to_i a) <=> (Carta.to_i b)}
+		m.each do |c|
+			salida = salida + " " + c.to_s
 		end
-		print "\n"
+		salida = salida + "\n"
+		return salida
 	end
 	
 	# Instancia la IA del jugador. La clase IA seleccionada dependera de la ronda que toca y el nivel de inteligencia que le demos al jugador al crearlo.
@@ -71,18 +80,18 @@ class Jugador
 			# Miramos el nivel de inteligencia que tiene el jugadorR
 			case @nivel_inteligencia_jugador
 			when Constantes::NIVEL_0
-				@ia_jugador = IA_no_hacer_v0.new
-			when Constantes::NIVEL_1
-				@ia_jugador = IA_no_hacer_v1.new
+				@ia_jugador = IA_no_hacer_v0.new @verbose
+			when Constantes::NIVEL_1 
+				@ia_jugador = IA_no_hacer_v1.new @verbose
 			when Constantes::NIVEL_2
-				@ia_jugador = IA_no_hacer_v2.new
+				@ia_jugador = IA_no_hacer_v2.new @verbose
 			end
 
 		end	
 	end
 
 	# Juega la primera carta de una baza. Inicialmente solo para la ronda no_hacer. 
-	#
+	# 
 	# @return [Carta] Devuelve un objeto carta jugado y sacado de su mano.
 	# @note Extender al resto de rondas.
 	#

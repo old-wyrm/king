@@ -20,18 +20,22 @@ class Baza
 		@baza = nil
 	end
 
-	# Muestra en pantalla la baza.
+	# Convierte y formatea una baza en una cadena de caracteres.
 	#
-	def muestra_en_pantalla
-		print "(",Constantes::J1,"=>"
-		@baza [Constantes::J1].muestra_en_pantalla if @baza[Constantes::J1] != nil
-		print " ",Constantes::J2,"=>"
-		@baza [Constantes::J2].muestra_en_pantalla if @baza[Constantes::J2] != nil
-		print " ",Constantes::J3,"=>"
-		@baza [Constantes::J3].muestra_en_pantalla if @baza[Constantes::J3] != nil
-		print " ",Constantes::J4,"=>"
-		@baza [Constantes::J4].muestra_en_pantalla if @baza[Constantes::J4] != nil
-		print ")"
+	# @return [String] Cadena formateada.
+	#
+	def to_s
+		salida = ""
+		salida = salida + "(" + Constantes::J1 + "=>"
+		salida = salida + @baza[Constantes::J1].to_s if @baza[Constantes::J1] != nil
+		salida = salida + " " + Constantes::J2 + "=>"
+		salida = salida + @baza[Constantes::J2].to_s if @baza[Constantes::J2] != nil
+		salida = salida + " " + Constantes::J3 + "=>"
+		salida = salida + @baza[Constantes::J3].to_s if @baza[Constantes::J3] != nil
+		salida = salida + " " + Constantes::J4 + "=>"
+		salida = salida + @baza[Constantes::J4].to_s if @baza[Constantes::J4] != nil
+		salida = salida + ")\n"
+		return salida 
 	end
 
 	# Devuelve la menor carta de una baza. Recorre todas las cartas de una baza y devuelve la menor.
