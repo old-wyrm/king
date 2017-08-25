@@ -1,5 +1,5 @@
-$LOAD_PATH << "."
-#require 
+# $LOAD_PATH << "."
+# require 
 
 # Modulo con la definicion de constantes usadas por las distintas clases.
 #
@@ -67,24 +67,4 @@ module Constantes
 	NIVEL_1 = 1
 	# Condificacion para el nivel de inteligencia 2
 	NIVEL_2 = 2
-
-	# Pasa el turno al siguiente jugador modificando la variable @jugador_en_activo. Establece orden circular, de forma que detrás del cuarto jugador va de nuevo el primero.
-	#
-	# @param jugador [String] Recibe el identificador de un jugador
-	# @return [String] Devuelve el siguiente jugador en orden circular
-	#
-	def Constantes.siguiente_jugador jugador
-		siguiente = nil
-		case jugador
-		when Constantes::J1
-			siguiente = Constantes::J2
-		when Constantes::J2
-			siguiente = Constantes::J3
-		when Constantes::J3
-			siguiente = Constantes::J4
-		when Constantes::J4
-			siguiente = Constantes::J1
-		end
-		return siguiente
-	end
 end

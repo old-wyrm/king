@@ -5,7 +5,11 @@
 class IA_no_hacer_v1 < IA_no_hacer
 
 	# Inicializacion del objeto. No contiene codigo especifico.
-	def initialize
+	#
+	# @param v [Boolean] Indica el modo de salida en pantalla. Si true muestra etapas intermedias de la partida.
+	#
+	def initialize v
+		super v
 	end
 
 	# Juega la primera carta de una baza en la ronda "no hacer. 

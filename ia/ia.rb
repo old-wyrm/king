@@ -2,8 +2,14 @@
 #
 class IA
 
+	@verbose = false
+
 	# Inicializacion del objeto. No contiene codigo especifico.
-	def initialize
+	#
+	# @param v [Boolean] Indica el modo de salida en pantalla. Si true muestra etapas intermedias de la partida.
+	#
+	def initialize v
+		@verbose = v
 	end
 
 	# Juega la primera carta de una baza en una ronda.
@@ -170,21 +176,28 @@ class IA
 		cartas_diamantes = obtiene_cartas_mismo_palo mano, (Carta.new Constantes::AS,Constantes::DIAMANTES)
 		cartas_treboles = obtiene_cartas_mismo_palo mano, (Carta.new Constantes::AS,Constantes::TREBOLES)
 
-		print Constantes::CORAZONES,"=>",cartas_corazones.size," ",Constantes::PICAS,"=>",cartas_picas.size," ",Constantes::DIAMANTES,"=>",cartas_diamantes.size," ",Constantes::TREBOLES,"=>",cartas_treboles.size,"\n"
-
-		if cartas_corazones.size > 0 and cartas_corazones.size <= cartas_picas.size and cartas_corazones.size <= cartas_diamantes.size and cartas_corazones.size <= cartas_treboles.size
+		if cartas_corazones.size > 0 and (cartas_corazones.size <= cartas_picas.size or cartas_picas.size == 0) and (cartas_corazones.size <= cartas_diamantes.size or cartas_diamantes.size == 0) and (cartas_corazones.size <= cartas_treboles.size or cartas_treboles.size == 0)
 		       then
 		       cartas_palo_menor = cartas_corazones
-		elsif cartas_picas.size > 0 and cartas_picas.size <= cartas_corazones.size and cartas_picas.size <= cartas_diamantes.size and cartas_picas.size <= cartas_treboles.size
+		elsif cartas_picas.size > 0 and (cartas_picas.size <= cartas_corazones.size or cartas_corazones.size == 0)  and (cartas_picas.size <= cartas_diamantes.size or cartas_diamantes.size == 0)  and (cartas_picas.size <= cartas_treboles.size or cartas_treboles.size == 0)
 		       then
 		       cartas_palo_menor = cartas_picas
-		elsif cartas_diamantes.size > 0 and cartas_diamantes.size <= cartas_corazones.size and cartas_diamantes.size <= cartas_picas.size and cartas_diamantes.size <= cartas_treboles.size
+		elsif cartas_diamantes.size > 0 and (cartas_diamantes.size <= cartas_corazones.size or cartas_corazones.size == 0)  and (cartas_diamantes.size <= cartas_picas.size or cartas_picas.size == 0) and (cartas_diamantes.size <= cartas_treboles.size or cartas_treboles.size == 0)
 		       then
 		       cartas_palo_menor = cartas_diamantes
-		elsif cartas_treboles.size > 0 and cartas_treboles.size <= cartas_corazones.size and cartas_treboles.size <= cartas_picas.size and cartas_treboles.size <= cartas_diamantes.size
+		elsif cartas_treboles.size > 0 and (cartas_treboles.size <= cartas_corazones.size or cartas_corazones.size == 0) and (cartas_treboles.size <= cartas_picas.size or cartas_picas.size == 0) and (cartas_treboles.size <= cartas_diamantes.size or cartas_diamantes.size == 0)
 		       then
 		       cartas_palo_menor = cartas_treboles
 		end	       
 		return cartas_palo_menor
+	end
+
+	# Dada una mano formada por un solo palo devuelve booleano diciendo si es un palo corto (sólo tiene 1 o 2 cartas)
+	#
+	# @param mano [Array] Array de objetos Carta de un solo palo
+	# @return [Boolean] Devuelve cierto si el array parametro es menor que 1 o 2
+	#
+	def es_palo_corto mano
+		return mano.size <= 2
 	end
 end

@@ -112,10 +112,13 @@ class Carta
 		a_valor_i >  b_valor_i
 	end
 
-	# Muestra una carta por pantalla
+	# Convierte y formatea una carta en una cadena de caracteres.
 	#
-	def muestra_en_pantalla
-		print @carta
+	# @return [String] Cadena formateada.
+	#
+	def to_s
+		salida = @carta
+		return salida
 	end
 
 	# Devuelve la carta mas baja de un array de cartas, sean o no del mismo palo. Es un metodo de clase.
@@ -169,5 +172,37 @@ class Carta
 			end	
 		end
 		return de_un_palo
+	end
+
+	# Metodo de clase. Asigna un valor numerico a una carta para permitir su ordenacion.
+	#
+	# @param c [Carta] Objeto tipo carta a convertir.
+	# @return [Integer] Valor entero asignado a la carta en funcion de su valor y su palo.
+	#
+	def Carta.to_i c
+		a_valor_i = 0
+		case (c.carta.split "+")[0]
+		when Constantes::J
+			a_valor_i = 11
+		when Constantes::Q
+			a_valor_i = 12
+		when Constantes::K
+			a_valor_i = 13
+		when Constantes::AS
+			a_valor_i = 14
+		else
+			a_valor_i = (c.carta.split "+")[0].to_i
+		end
+		case (c.carta.split "+")[1]
+		when Constantes::CORAZONES
+			a_valor_i = a_valor_i + 10000
+		when Constantes::PICAS
+			a_valor_i = a_valor_i + 1000
+		when Constantes::DIAMANTES
+			a_valor_i = a_valor_i + 100
+		when Constantes::TREBOLES
+			a_valor_i = a_valor_i + 0
+		end
+		return a_valor_i
 	end
 end

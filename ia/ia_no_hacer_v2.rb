@@ -1,15 +1,19 @@
 # Clase IA. Modela la inteligencia artificial del jugador para la ronda "no hacer", version 2.
 #
-# @note <escribir resultados>
+# @note Mejora sustancialmente el comportamiento respecto a la version 0 pero solo ligeramente respecto a la version 1. En 10.000 juegos con jugadores de inteligencia 2,1,0,1; el jugador con inteligencia 2 tan solo consiguio una mejora marginal (20%,21%,38%,21%). Esta version implementa el concepto de PALO CORTO
 #
 class IA_no_hacer_v2 < IA_no_hacer
 
 	# Inicializacion del objeto. No contiene codigo especifico.
-	def initialize
+	#
+	# @param v [Boolean] Indica el modo de salida en pantalla. Si true muestra etapas intermedias de la partida.
+	#
+	def initialize v
+		super v
 	end
 
 	# Juega la primera carta de una baza en la ronda "no hacer. 
-	# Esta version implementa el concepto de PALO CORTO (palo con 1 o 2 cartas que hay que desprenderse):
+	# Esta version implementa:
 	# 1) Obtiene las cartas del palo que sea menor
 	# 12) Si tiene 1 o 2 cartas de ese palo 
 	# 121) Juega la menor carta
@@ -20,10 +24,10 @@ class IA_no_hacer_v2 < IA_no_hacer
 	#
 	def juega_primero mano
 		cartas_palo_menor = obtiene_cartas_palo_menor mano
-		if cartas_palo_menor.size == 1 or cartas_palo_menor.size == 2
+		if  es_palo_corto cartas_palo_menor
 			then 
 			carta_a_jugar = obtiene_carta_menor cartas_palo_menor
-			print "PALO CORTO:",carta_a_jugar.carta.split("+")[1],"\n"
+			Util.muestra_msg "PALO CORTO=>" + carta_a_jugar.carta.split("+")[1] + "\n", @verbose
 		else
 			carta_a_jugar = obtiene_carta_menor mano
 		end
@@ -38,7 +42,10 @@ class IA_no_hacer_v2 < IA_no_hacer
 	# 12) Sino tenemos cartas inferiores a la carta inicial
 	# 121) Jugamos la mayor carta de las cartas del mismo palo que tengamos
 	# 2) Sino tenemos cartas del mismo palo
-	# 21) Jugamos la mayor carta que tengamos en la mano (sera de otro palo)
+	# 21) Si tenemos un palo corto
+	# 211 Jugamos la mayor carta del palo corto)
+	# 22) Sino tenemos palo corto
+	# 221) Jugamos la mayor carta de la mano
 	#
 	# @param mano [Array] Array de objetos Carta que representa la mano de un jugador.
 	# @param carta_inicial [Carta] Carta de muestra de la baza
@@ -63,8 +70,17 @@ class IA_no_hacer_v2 < IA_no_hacer
 			end
 		else
 			# No tenemos cartas del mismo palo
-			# Escogemos la carta mayor que tengamos
-			carta_a_jugar = obtiene_carta_mayor mano
+			# Miramos si tenemos un palo corto
+			cartas_palo_menor = obtiene_cartas_palo_menor mano
+			if es_palo_corto cartas_palo_menor
+				then 
+				# Si tenemos un palo corto escogemos la mayor de ese palo
+				carta_a_jugar = obtiene_carta_mayor cartas_palo_menor
+				Util.muestra_msg "PALO CORTO=>" + carta_a_jugar.carta.split("+")[1] + "\n", @verbose
+			else
+				# sino tenemos palo corto escogemos la mayor de toda la mano
+				carta_a_jugar = obtiene_carta_mayor mano
+			end
 		end
 		return carta_a_jugar
 	end

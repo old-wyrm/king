@@ -57,7 +57,7 @@ class Baraja
 				j1.mano_jugador << @baraja[indice]
 			end 
 			# pasa al siguiente jugador
-			jugador_que_toca = Constantes.siguiente_jugador jugador_que_toca
+			jugador_que_toca = Util.siguiente_jugador jugador_que_toca
 			#saca la carta de la baraja
 			@baraja = @baraja - [@baraja[indice]]
 
@@ -67,6 +67,6 @@ class Baraja
 		j1 = jugadores[jugador_que_toca]
 		j1.mano_jugador << @baraja[0]
 		# pasa al siguiente jugador para que es al que le tocara jugar
-		jugador_que_toca = Constantes.siguiente_jugador jugador_que_toca
+		jugador_que_toca = Util.siguiente_jugador jugador_que_toca
 	end
 end
