@@ -21,7 +21,7 @@ Dentro del fichero se especifican: Nombre e IA de los jugadores, número de part
 
 ## Documentacion
 
-El proyecto está documentado con YARD. La documentación puede construirse con ejecutando `yard doc *rb` en el directorio raíz.
+El proyecto está documentado con YARD. La documentación puede construirse con ejecutando `yard doc *rb lib/*rb lib/modules/*rb lib/ia/*rb` en el directorio raíz.
 
 Para instalar YARD: `gem install yard`
 
