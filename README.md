@@ -16,8 +16,8 @@ Este codigo ha sido desarrollado y testeado con Ruby 2.0.0p648
 
 ## Cómo usarlo?
 
-Fácil: `ruby test.rb`
-Dentro del fichero se especifican: Nombre e IA de los jugadores, número de partidas a jugar y modo verbose.
+Fácil: `ruby partida.rb`
+Dentro del fichero se especifican: Nombre e IA de los jugadores y modo de salida en pantalla.
 
 ## Documentacion
 
