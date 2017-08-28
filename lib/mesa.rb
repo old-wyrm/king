@@ -92,6 +92,9 @@ class Mesa
 		baraja_de_juego = Baraja.new
 		baraja_de_juego.repartir @jugadores, @jugador_en_activo
 
+		# Instanciamos la IA de los jugadores
+		# La constante pasada indica que tipo de IA
+		# El nivel lo tiene el jugador pasado en su initialize
 		@jugadores[Constantes::J1].juega Constantes::NO_HACER
 		@jugadores[Constantes::J2].juega Constantes::NO_HACER
 		@jugadores[Constantes::J3].juega Constantes::NO_HACER
@@ -103,48 +106,35 @@ class Mesa
 			Util.muestra_msg to_s, @verbose
 
 			# Para cada baza crea un nuevo objeto Baza
-		 	@baza_en_juego = Baza.new
+		 	@baza_en_juego = Baza.new @jugador_en_activo
 
 		        # Obtiene la carta del primer jugador
 			# La mete en la baza en juego
 			# Pasa al siguiente jugador
 		 	c1 = @jugadores[@jugador_en_activo].juega_primero
 		 	@baza_en_juego.baza = {@jugador_en_activo => c1}
-			if @verbose 
-				then
-				Util.muestra_msg @baza_en_juego.to_s, @verbose
-			end
 		 	siguiente_jugador_en_activo
 
 			# Igual que la anterior pero en lugar de jugar_primero llama a jugar (ya hay una carta en la baza por tanto)
 		 	c2 = @jugadores[@jugador_en_activo].juega_despues c1, @baza_en_juego
 		 	@baza_en_juego.baza[@jugador_en_activo]=c2
-			if @verbose 
-				then
-				Util.muestra_msg @baza_en_juego.to_s, @verbose
-			end
 		 	siguiente_jugador_en_activo
 		 	
 			# Igual que la anterior	
 			c3 = @jugadores[@jugador_en_activo].juega_despues c1, @baza_en_juego
 		 	@baza_en_juego.baza[@jugador_en_activo]=c3
-			if @verbose 
-				then
-				Util.muestra_msg @baza_en_juego.to_s, @verbose
-			end
 		 	siguiente_jugador_en_activo
 		 	
 			# Igual que la anterior	
 			c4 = @jugadores[@jugador_en_activo].juega_despues c1, @baza_en_juego
 		 	@baza_en_juego.baza[@jugador_en_activo]=c4
-			if @verbose 
-				then
-				Util.muestra_msg @baza_en_juego.to_s, @verbose
-			end
 		 	siguiente_jugador_en_activo
 		 	
+			# Muestra la baza jugada
+			Util.muestra_msg @baza_en_juego.to_s, @verbose
 			# Comprueba quien ha ganado la baza (jugador que haya echalado la carta mas alta del palo inicial)
 			jugador_que_gana = @baza_en_juego.quien_gana c1
+			Util.muestra_msg "Pierde=>"+@jugadores[jugador_que_gana].nombre_jugador+"\n", @verbose
 			# Le suma un negativo
 		 	@jugadores[jugador_que_gana].puntuacion_jugador -= 1
 			# El jugador que ha ganado comienza la siguiente baza

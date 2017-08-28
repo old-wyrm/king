@@ -27,7 +27,7 @@ class IA_no_hacer_v2 < IA_no_hacer
 		if  es_palo_corto cartas_palo_menor
 			then 
 			carta_a_jugar = obtiene_carta_menor cartas_palo_menor
-			Util.muestra_msg "PALO CORTO=>" + carta_a_jugar.carta.split("+")[1] + "\n", @verbose
+			Util.muestra_msg "Palo Corto=>" + carta_a_jugar.carta.split("+")[1] + "\n", @verbose
 		else
 			carta_a_jugar = obtiene_carta_menor mano
 		end
@@ -76,7 +76,7 @@ class IA_no_hacer_v2 < IA_no_hacer
 				then 
 				# Si tenemos un palo corto escogemos la mayor de ese palo
 				carta_a_jugar = obtiene_carta_mayor cartas_palo_menor
-				Util.muestra_msg "PALO CORTO=>" + carta_a_jugar.carta.split("+")[1] + "\n", @verbose
+				Util.muestra_msg "Palo Corto=>" + carta_a_jugar.carta.split("+")[1] + "\n", @verbose
 			else
 				# sino tenemos palo corto escogemos la mayor de toda la mano
 				carta_a_jugar = obtiene_carta_mayor mano
