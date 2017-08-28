@@ -1,5 +1,6 @@
-$LOAD_PATH << "ia/."
+$LOAD_PATH << "lib/ia/."
 require "ia"
+require "ia_manual"
 require "ia_no_hacer"
 require "ia_no_hacer_v0"
 require "ia_no_hacer_v1"
@@ -61,8 +62,10 @@ class Jugador
 	def to_s
 		salida = @nombre_jugador+" "+@puntuacion_jugador.to_s+" ptos "
 		m = @mano_jugador.sort!{|a,b| (Carta.to_i a) <=> (Carta.to_i b)}
+		indice_carta = 0
 		m.each do |c|
-			salida = salida + " " + c.to_s
+			salida = salida + " " + indice_carta.to_s + ":" + c.to_s
+			indice_carta = indice_carta + 1
 		end
 		salida = salida + "\n"
 		return salida
@@ -74,20 +77,26 @@ class Jugador
 	# @see Constantes
 	#
 	def juega ronda
-		# Miramos que ronda toca
-		case ronda
-		when Constantes::NO_HACER
-			# Miramos el nivel de inteligencia que tiene el jugadorR
-			case @nivel_inteligencia_jugador
-			when Constantes::NIVEL_0
-				@ia_jugador = IA_no_hacer_v0.new @verbose
-			when Constantes::NIVEL_1 
-				@ia_jugador = IA_no_hacer_v1.new @verbose
-			when Constantes::NIVEL_2
-				@ia_jugador = IA_no_hacer_v2.new @verbose
-			end
+		# Comprobamos si es un jugador manual
+		if @nivel_inteligencia_jugador == Constantes::MANUAL
+			then
+			@ia_jugador = IA_manual.new @verbose
+		else
 
-		end	
+			# Miramos que ronda toca
+			case ronda
+			when Constantes::NO_HACER
+				# Miramos el nivel de inteligencia que tiene el jugadorR
+				case @nivel_inteligencia_jugador
+				when Constantes::NIVEL_0
+					@ia_jugador = IA_no_hacer_v0.new @verbose
+				when Constantes::NIVEL_1 
+					@ia_jugador = IA_no_hacer_v1.new @verbose
+				when Constantes::NIVEL_2
+					@ia_jugador = IA_no_hacer_v2.new @verbose
+				end
+			end	
+		end
 	end
 
 	# Juega la primera carta de una baza. Inicialmente solo para la ronda no_hacer. 

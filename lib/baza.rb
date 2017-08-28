@@ -9,15 +9,24 @@
 # 	@see Carta
 # 	@see Constantes
 #
+# @!attribute [r] jugador_inicial_baza
+# 	Almacena quien fue el jugador inicial de una baz
+# 	@return [String] Cadena identificadora de un jugador segun el formato establecido el modulo Constantes.
+# 	@see Constantes
+#
 # @author old-wyrm
 #
 class Baza
 	attr_accessor :baza
+	attr_reader :jugador_inicial_baza
 
 	# Inicializacion del objeto. Establece el atributo @baza a nil.
 	#
-	def initialize
+	# @param j [String] Jugador inicial de la baza
+	#
+	def initialize j
 		@baza = nil
+		@jugador_inicial_baza = j
 	end
 
 	# Convierte y formatea una baza en una cadena de caracteres.
@@ -25,7 +34,7 @@ class Baza
 	# @return [String] Cadena formateada.
 	#
 	def to_s
-		salida = ""
+		salida = @jugador_inicial_baza
 		salida = salida + "(" + Constantes::J1 + "=>"
 		salida = salida + @baza[Constantes::J1].to_s if @baza[Constantes::J1] != nil
 		salida = salida + " " + Constantes::J2 + "=>"
