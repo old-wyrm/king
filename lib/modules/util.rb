@@ -37,4 +37,15 @@ module Util
 			print m
 		end
 	end
+
+	# Captura entrada de teclado
+	#
+	# @param m [String] Mensaje a mostrar por pantella.
+	# @return [String] Cadena capturada
+	#
+	def Util. captura_entrada  m
+		print m
+		cadena = gets
+		return cadena
+	end
 end

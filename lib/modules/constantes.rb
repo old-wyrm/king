@@ -61,6 +61,9 @@ module Constantes
 	# Codificacion para la ronda no hacer
 	NO_HACER = "no_hacer"
 
+	# Codificacion para el nivel de inteligencia manual
+	# En este nivel no hay IA es una persona la que introduce la jugada
+	MANUAL = -1
 	# Condificacion para el nivel de inteligencia 0
 	NIVEL_0 = 0
 	# Condificacion para el nivel de inteligencia 1
